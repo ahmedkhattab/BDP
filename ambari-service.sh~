@@ -1,0 +1,24 @@
+{
+  "kind": "Service",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "ambari",
+    "labels": {
+      "name": "ambari"
+    }
+  },
+  "spec": {
+    "type": "NodePort",
+    "ports": [
+      {
+	"name": "ambari",
+        "port": 8080,
+        "targetPort": 8080
+      }
+    ],
+    "selector": {
+      "name": "amb-server"
+    }
+  }
+}
+

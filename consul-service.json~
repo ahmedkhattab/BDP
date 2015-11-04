@@ -1,0 +1,35 @@
+{
+  "kind": "Service",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "consul",
+    "labels": {
+      "name": "consul"
+    }
+  },
+  "spec": {
+    "type": "NodePort",
+    "ports": [
+      {
+	"name": "consul",
+        "port": 8500,
+        "targetPort": 8500
+      },
+      {
+	"name": "dns2",
+        "port": 53,
+        "targetPort": 53,
+        "protocol": "UDP"
+      },
+ 	{
+	"name": "dns1",
+        "port": 53,
+        "targetPort": 53
+      }
+    ],
+    "selector": {
+      "name": "amb-consul"
+    }
+  }
+}
+

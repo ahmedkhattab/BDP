@@ -1,0 +1,45 @@
+{
+  "kind": "ReplicationController",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "amb-slave-controller",
+    "labels": {
+      "name": "amb-slave"
+    }
+  },
+  "spec": {
+    "replicas": 3,
+    "selector": {
+      "name": "amb-slave"
+    },
+    "template": {
+      "metadata": {
+        "labels": {
+          "name": "amb-slave",
+          "uses": "amb-server"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "amb-slave",
+            "image": "sequenceiq/ambari:2.1.2-v1",
+            "ports": [
+              {
+                "hostPort": 8888,
+                "containerPort": 8080
+              }
+            ],
+	    "env": [
+		{ 
+                  "name": "BRIDGE_IP",
+		  "value": "$(CONSUL_SERVICE_HOST)"
+		}
+	    ],
+	    "command": ["/start-agent"]
+          }
+        ]
+      }
+    }
+  }
+}

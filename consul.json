@@ -1,0 +1,24 @@
+{
+  "kind": "Pod",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "amb-consul",
+    "labels": {
+      "name": "amb-consul"
+    }
+  },
+  "spec": {
+    "containers": [
+      {
+        "name": "amb-consul",
+        "image": "sequenceiq/consul:v0.5.0-v6",
+	"args": ["-server", "-bootstrap"],
+        "resources": {
+          "limits": {
+            "cpu": "100m"
+          }
+        }
+     }
+    ]
+  }
+}
