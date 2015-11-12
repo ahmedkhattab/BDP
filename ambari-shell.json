@@ -1,0 +1,41 @@
+{
+  "kind": "Pod",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "amb-shell",
+    "labels": {
+      "name": "amb-shell"
+    }
+  },
+  "spec": {
+    "containers": [
+      {
+        "name": "amb-shell",
+        "image": "khattab/ambari:2.1.2",
+        "ports": [
+          {
+            "containerPort": 8080
+          }
+        ],
+	"env": [
+		{ "name": "AMBARI_HOST",
+		  "value": "$(AMBARI_SERVICE_HOST)"
+		},
+		{ "name": "BLUEPRINT",
+		  "value": "multi-node-hdfs"
+		},
+		{ "name": "EXPECTED_HOST_COUNT",
+		  "value": "3"
+		}
+	],
+        "resources": {
+          "limits": {
+            "cpu": "100m"
+          }
+        },
+        "command": ["/bin/sh"],
+	"args": ["/tmp/install-hdfs.sh"]
+      }
+    ]
+  }
+}

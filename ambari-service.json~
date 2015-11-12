@@ -25,12 +25,6 @@
 	"name": "endpoint2",
         "port": 8441,
         "targetPort": 8441
-      },
-     {
-	"name": "endpoint3",
-        "port": 50070,
-        "targetPort": 50070,
-	"nodePort": 31314
       }
     ],
     "selector": {

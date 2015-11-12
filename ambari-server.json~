@@ -15,9 +15,6 @@
         "ports": [
           {
             "containerPort": 8080
-          },
-          {
-            "containerPort": 50070
           }
         ],
 	"env": [
