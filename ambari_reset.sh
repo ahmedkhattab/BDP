@@ -29,13 +29,15 @@ get-namenode-pod() {
 
 clean-up() {
   echo "Cleaning up minions ... "
-  $KUBE delete rc --all
+  $KUBE delete rc amb-slave-controller
   $KUBE delete svc ambari
   $KUBE delete svc consul
-  $KUBE delete pods --all
+  $KUBE delete pods amb-server
+  $KUBE delete pods amb-consul
+  $KUBE delete pods amb-shell
 }
 
-start() {
+start_ambari() {
 
 	clean-up
 
@@ -47,9 +49,10 @@ start() {
   while true; do
 		server_state=$(get-pod-status amb-consul)
 		if [[ "$server_state" == "Running" ]]; then
-			break
+			echo ""
+      break
 		else
-			echo "."
+			echo -n "."
 			sleep 5
 		fi
 	done
@@ -62,9 +65,10 @@ start() {
 	while true; do
 		server_state=$(get-pod-status amb-server)
 		if [[ "$server_state" == "Running" ]]; then
+			echo ""			
 			break
 		else
-			echo "."
+			echo -n "."
 			sleep 5
 		fi
 	done
@@ -89,7 +93,7 @@ start() {
 		fi
 	done
 
-	echo "Creating ambari cluster using the blueprint multi-node-hdfs-yarn"
+	echo "Creating ambari cluster using the blueprint multi-node-hdfs"
 	$KUBE create -f ~/Ambari/ambari-shell.json
 
 	$KUBE get pods | cut -d " " -f 1 | grep amb-slave | while read pod; do  

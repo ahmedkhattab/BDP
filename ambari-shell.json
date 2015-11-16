@@ -8,6 +8,7 @@
     }
   },
   "spec": {
+    "restartPolicy": "Never",
     "containers": [
       {
         "name": "amb-shell",
@@ -17,24 +18,27 @@
             "containerPort": 8080
           }
         ],
-	"env": [
-		{ "name": "AMBARI_HOST",
-		  "value": "$(AMBARI_SERVICE_HOST)"
-		},
-		{ "name": "BLUEPRINT",
-		  "value": "multi-node-hdfs"
-		},
-		{ "name": "EXPECTED_HOST_COUNT",
-		  "value": "3"
-		}
-	],
+				"env": [
+					{ 
+						"name": "AMBARI_HOST",
+						"value": "$(AMBARI_SERVICE_HOST)"
+					},
+					{ 
+						"name": "BLUEPRINT",
+						"value": "multi-node-hdfs"
+					},
+					{ 
+						"name": "EXPECTED_HOST_COUNT",
+						"value": "3"
+					}
+				],
         "resources": {
           "limits": {
             "cpu": "100m"
           }
         },
         "command": ["/bin/sh"],
-	"args": ["/tmp/install-hdfs.sh"]
+	      "args": ["/tmp/install-hdfs.sh"]
       }
     ]
   }
