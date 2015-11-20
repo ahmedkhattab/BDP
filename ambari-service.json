@@ -11,24 +11,29 @@
     "type": "NodePort",
     "ports": [
       {
-	"name": "ambari",
+				"name": "ambari",
         "port": 8080,
         "targetPort": 8080,
         "nodePort": 31313
       },
      {
-	"name": "endpoint1",
+				"name": "endpoint1",
         "port": 8440,
         "targetPort": 8440
       },
      {
-	"name": "endpoint2",
+				"name": "endpoint2",
         "port": 8441,
         "targetPort": 8441
+     },
+     {
+				"name": "endpoint3",
+        "port": 6188,
+        "targetPort": 6188
      }
     ],
     "selector": {
-      "name": "amb-server"
+      "name": "amb-server.service.consul"
     }
   }
 }

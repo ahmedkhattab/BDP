@@ -2,23 +2,22 @@
   "kind": "Pod",
   "apiVersion": "v1",
   "metadata": {
-    "name": "amb-consul",
+    "name": "spark-driver",
     "labels": {
-      "name": "amb-consul"
+      "name": "spark-driver"
     }
   },
   "spec": {
     "containers": [
       {
-        "name": "amb-consul",
-        "image": "sequenceiq/consul:v0.5.0-v6",
-	"args": ["-server", "-bootstrap"],
+        "name": "spark-driver",
+        "image": "gcr.io/google_containers/spark-driver:1.4.0_v1",
         "resources": {
           "limits": {
             "cpu": "100m"
           }
         }
-     }
+      }
     ]
   }
 }

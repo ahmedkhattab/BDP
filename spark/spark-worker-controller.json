@@ -23,7 +23,7 @@
         "containers": [
           {
             "name": "spark-worker",
-            "image": "gcr.io/google_containers/spark-worker",
+            "image": "gcr.io/google_containers/spark-worker:1.4.0_v1",
             "ports": [
               {
                 "hostPort": 8888,
@@ -32,7 +32,7 @@
             ],
             "resources": {
               "limits": {
-                "cpu": "100m"
+                "cpu": "500m"
               }
             }
           }

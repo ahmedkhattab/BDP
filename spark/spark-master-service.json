@@ -8,20 +8,20 @@
     }
   },
   "spec": {
-    "type": "NodePort",
+ 		"type": "NodePort",
     "ports": [
-		  {
-        "name": "spark-ui",
-        "port": 8080,
-        "targetPort": 8080,
-        "nodePort": 31314
-      },
+
       {
         "name": "spark-main",
         "port": 7077,
         "targetPort": 7077
+      },
+    	{
+        "name": "spark-ui",
+        "port": 8080,
+        "targetPort": 8080,
+        "nodePort": 31314
       }
-    
     ],
     "selector": {
       "name": "spark-master"

@@ -2,9 +2,9 @@
   "kind": "Pod",
   "apiVersion": "v1",
   "metadata": {
-    "name": "amb-server",
+    "name": "amb-server.service.consul",
     "labels": {
-      "name": "amb-server"
+      "name": "amb-server.service.consul"
     }
   },
   "spec": {
@@ -16,11 +16,14 @@
           {
             "containerPort": 8080
           },
-     	  {
+     	 		{
             "containerPort": 8440
           },
-     	  {
+     	  	{
             "containerPort": 8441
+          },
+					{
+            "containerPort": 6188
           }
         ],
 	"env": [

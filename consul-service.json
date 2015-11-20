@@ -17,27 +17,45 @@
 			{
 				"name": "consul2",
         "port": 8600,
-        "targetPort": 8600
+        "targetPort": 8600,
+        "protocol": "UDP"
       },
 			{
 				"name": "consul3",
+        "port": 8600,
+        "targetPort": 8600
+      },
+			{
+				"name": "consul4",
         "port": 8400,
         "targetPort": 8400
       },
 			{
-				"name": "consul4",
+				"name": "consul5",
         "port": 8300,
         "targetPort": 8300
       },
 			{
-				"name": "consul5",
+				"name": "consul6",
         "port": 8301,
         "targetPort": 8301
       },
 			{
-				"name": "consul6",
+				"name": "consul6-udp",
+        "port": 8301,
+        "targetPort": 8301,
+        "protocol": "UDP"
+      },
+			{
+				"name": "consul7",
         "port": 8302,
         "targetPort": 8302
+      },
+   		{
+				"name": "consul7-udp",
+        "port": 8302,
+        "targetPort": 8302,
+        "protocol": "UDP"
       },
       {
 				"name": "dns2",
@@ -45,8 +63,8 @@
         "targetPort": 53,
         "protocol": "UDP"
       },
- 	{
-	"name": "dns1",
+    	{
+	      "name": "dns1",
         "port": 53,
         "targetPort": 53
       }

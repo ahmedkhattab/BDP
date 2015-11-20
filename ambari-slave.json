@@ -16,7 +16,7 @@
       "metadata": {
         "labels": {
           "name": "amb-slave",
-          "uses": "amb-server"
+          "uses": "amb-server.service.consul"
         }
       },
       "spec": {
@@ -24,32 +24,6 @@
           {
             "name": "amb-slave",
             "image": "sequenceiq/ambari:2.1.2-v1",
-            "ports": [
-              {
-                "containerPort": 8080
-              },
-	      {
-                "containerPort": 19888
-              },
-	      {
-                "containerPort": 8042
-              },
-	      {
-                "containerPort": 8041
-	      },
-	      {
-                "containerPort": 50090
-              },
-	      {
-                "containerPort": 50075
-              },
-	      {
-                "containerPort": 50070
-              },
-	      {
-                "containerPort": 50010
-              }
-            ],
 	    "env": [
 		{ 
                   "name": "BRIDGE_IP",

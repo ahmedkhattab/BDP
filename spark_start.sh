@@ -2,7 +2,6 @@
 KUBE="/home/khattab/kubernetes/cluster/kubectl.sh"
 
 get-spark-master() {
-  SPARK_PORT=$($KUBE get service spark-master -o=template '-t={{(index .spec.ports 0).nodePort}}')
   SPARK_IP=$($KUBE get nodes -o=template '-t={{(index (index .items 0).status.addresses 2).address}}')
 }
 
@@ -19,6 +18,10 @@ get-pending-pods() {
   $KUBE get pods | grep "Pending" | wc -l
 }
 
+get-remaining-pods() {
+  $KUBE get pods --no-headers | wc -l
+}
+
 get-namenode-pod() {
   get-ambari-server
   json= curl -s --user admin:admin http://$AMBARI_IP:$AMBARI_PORT/api/v1/clusters/multi-node-hdfs/services/HDFS/components/NAMENODE -o namenode.json
@@ -31,7 +34,18 @@ clean-up() {
   echo "Cleaning up minions ... "
   $KUBE delete rc spark-worker-controller
   $KUBE delete svc spark-master
-  $KUBE delete pods spark-master
+  $KUBE delete pod spark-master
+  $KUBE delete pod spark-driver
+	while true; do
+		remaining=$(get-remaining-pods)
+		if [[ $remaining == 0 ]]; then
+      echo "done"
+			break
+		else
+			echo -n "."
+			sleep 5
+		fi
+	done
 }
 
 start_spark() {
@@ -66,10 +80,12 @@ start_spark() {
 		fi
 	done
 
+  $KUBE create -f spark/spark-driver.json
+
   $KUBE get pods
 
   get-spark-master
 
-	echo "Spark UI accessible through: http://$SPARK_IP:$SPARK_PORT"
+	echo "Spark UI accessible through: http://$SPARK_IP:31314"
 }
 
