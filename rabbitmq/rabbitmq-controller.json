@@ -2,21 +2,14 @@
   "kind": "ReplicationController",
   "apiVersion": "v1",
   "metadata": {
-    "name": "rabbitmq-controller",
-    "labels": {
-      "component": "rabbitmq"
-    }
+    "name": "rabbitmq-controller"
   },
   "spec": {
     "replicas": 1,
-    "selector": {
-      "name": "rabbitmq-node"
-    },
     "template": {
       "metadata": {
         "labels": {
-          "app": "taskQueue",
-          "component": "rabbitmq"
+          "name": "rabbitmq-controller"
         }
       },
       "spec": {

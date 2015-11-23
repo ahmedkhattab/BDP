@@ -4,7 +4,7 @@
   "metadata": {
     "name": "rabbitmq",
     "labels": {
-      "component": "rabbitmq"
+      "name": "rabbitmq"
     }
   },
   "spec": {
@@ -27,8 +27,7 @@
       }
     ],
     "selector": {
-      "app": "taskQueue",
-      "component": "rabbitmq"
+      "name": "rabbitmq-controller"
     }
   }
 }

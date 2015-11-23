@@ -60,7 +60,7 @@ get-namenode-pod() {
 }
 
 
-clean-up() {
+clean-up-ambari() {
   echo "Cleaning up minions ... "
   $KUBE delete rc amb-slave-controller
   $KUBE delete svc ambari
@@ -72,7 +72,7 @@ clean-up() {
 
 start_ambari() {
 
-	clean-up
+	clean-up-ambari
 
 	echo "Launching consul"
 	$KUBE create -f ~/Ambari/consul.json

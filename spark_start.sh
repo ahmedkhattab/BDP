@@ -18,10 +18,6 @@ get-pending-pods() {
   $KUBE get pods | grep "Pending" | wc -l
 }
 
-get-remaining-pods() {
-  $KUBE get pods --no-headers | wc -l
-}
-
 get-namenode-pod() {
   get-ambari-server
   json= curl -s --user admin:admin http://$AMBARI_IP:$AMBARI_PORT/api/v1/clusters/multi-node-hdfs/services/HDFS/components/NAMENODE -o namenode.json
@@ -30,14 +26,15 @@ get-namenode-pod() {
 }
 
 
-clean-up() {
+clean-up-spark() {
   echo "Cleaning up minions ... "
   $KUBE delete rc spark-worker-controller
   $KUBE delete svc spark-master
   $KUBE delete pod spark-master
   $KUBE delete pod spark-driver
+
 	while true; do
-		remaining=$(get-remaining-pods)
+		remaining=$($KUBE get pods --no-headers | grep "spark" | wc -l)
 		if [[ $remaining == 0 ]]; then
       echo "done"
 			break
@@ -50,7 +47,7 @@ clean-up() {
 
 start_spark() {
 
-  clean-up
+  clean-up-spark
 
 	$KUBE	create -f spark/spark-master.json
 	$KUBE create -f spark/spark-master-service.json
