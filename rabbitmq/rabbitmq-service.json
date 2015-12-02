@@ -8,6 +8,7 @@
     }
   },
   "spec": {
+    "type": "NodePort",
     "ports": [
 
       {
@@ -18,12 +19,14 @@
     	{
         "name": "mqtt",
         "port": 1883,
-        "targetPort": 1883
+        "targetPort": 1883,
+				"nodePort": 31315
       },
     	{
         "name": "mgmt",
         "port": 15672,
-        "targetPort": 15672
+        "targetPort": 15672,
+				"nodePort": 31316
       }
     ],
     "selector": {
