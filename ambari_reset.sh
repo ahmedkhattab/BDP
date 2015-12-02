@@ -1,6 +1,6 @@
 #!/bin/bash
 
-KUBE="/home/khattab/kubernetes/cluster/kubectl.sh"
+KUBE="/home/khattab/kubernetes-1.1.2/cluster/kubectl.sh"
 AMBARI_SERVER_POD="amb-server.service.consul"
 
 get-ambari-server() {
