@@ -4,8 +4,8 @@ KUBE="/home/khattab/kubernetes-1.1.2/cluster/kubectl.sh"
 AMBARI_SERVER_POD="amb-server.service.consul"
 
 get-ambari-server() {
-  AMBARI_PORT=$($KUBE get service ambari -o=template '-t={{(index .spec.ports 0).nodePort}}')
-  AMBARI_IP=$($KUBE get nodes -o=template '-t={{(index (index .items 0).status.addresses 2).address}}')
+  AMBARI_PORT=$($KUBE get service ambari -o=template '--template={{(index .spec.ports 0).nodePort}}')
+  AMBARI_IP=$($KUBE get nodes -o=template '--template={{(index (index .items 0).status.addresses 2).address}}')
 }
 
 update-hostname() {
@@ -40,11 +40,11 @@ EOF'
 }
 
 get-host-ip() {
-  $KUBE get pod $1 -o template -t={{.status.hostIP}}
+  $KUBE get pod $1 -o template --template={{.status.hostIP}}
 }
 
 get-pod-status() {
-  $KUBE get pod $1 -o template -t={{.status.phase}}
+  $KUBE get pod $1 -o template --template={{.status.phase}}
 }
 
 
@@ -68,6 +68,17 @@ clean-up-ambari() {
   $KUBE delete pods $AMBARI_SERVER_POD
   $KUBE delete pods amb-consul
   $KUBE delete pods amb-shell
+
+	while true; do
+		remaining=$($KUBE get pods --no-headers | grep "amb" | wc -l)
+		if [[ $remaining == 0 ]]; then
+      echo "done"
+			break
+		else
+			echo -n "."
+			sleep 5
+		fi
+	done
 }
 
 start_ambari() {
@@ -108,7 +119,7 @@ start_ambari() {
 
 	echo "Registering consul services"
 
-	AMBARI_CLUSTER_IP=$($KUBE get service ambari -o=template '-t={{.spec.clusterIP}}')
+	AMBARI_CLUSTER_IP=$($KUBE get service ambari -o=template '--template={{.spec.clusterIP}}')
 
 	$KUBE exec $AMBARI_SERVER_POD -- /bin/sh -c 'curl -X PUT -d "{\"Node\": \"ambari-8080\",\"Address\": \"'$AMBARI_CLUSTER_IP'\",\"Service\": {\"Service\": \"ambari-8080\"}}" http://$CONSUL_SERVICE_HOST:8500/v1/catalog/register'
 
@@ -136,5 +147,6 @@ start_ambari() {
 	get-ambari-server
 
 	echo "Ambari UI accessible through: http://$AMBARI_IP:$AMBARI_PORT"
+	echo "Ambari UI accessible through: http://$AMBARI_IP:$AMBARI_PORT" >> stdout
 }
 

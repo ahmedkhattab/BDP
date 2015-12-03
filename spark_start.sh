@@ -2,15 +2,15 @@
 KUBE="/home/khattab/kubernetes-1.1.2/cluster/kubectl.sh"
 
 get-spark-master() {
-  SPARK_IP=$($KUBE get nodes -o=template '-t={{(index (index .items 0).status.addresses 2).address}}')
+  SPARK_IP=$($KUBE get nodes -o=template '--template={{(index (index .items 0).status.addresses 2).address}}')
 }
 
 get-host-ip() {
-  $KUBE get pod $1 -o template -t={{.status.hostIP}}
+  $KUBE get pod $1 -o template --template={{.status.hostIP}}
 }
 
 get-pod-status() {
-  $KUBE get pod $1 -o template -t={{.status.phase}}
+  $KUBE get pod $1 -o template --template={{.status.phase}}
 }
 
 
@@ -84,5 +84,6 @@ start_spark() {
   get-spark-master
 
 	echo "Spark UI accessible through: http://$SPARK_IP:31314"
+	echo "Spark UI accessible through: http://$SPARK_IP:31314" >> stdout
 }
 
