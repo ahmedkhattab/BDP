@@ -27,7 +27,7 @@ get-namenode-pod() {
 
 
 clean-up-spark() {
-  echo "Cleaning up minions ... "
+  echo "Spark: Cleaning up minions ... "
   $KUBE delete rc spark-worker-controller
   $KUBE delete svc spark-master
   $KUBE delete pod spark-master
@@ -52,7 +52,7 @@ start_spark() {
 	$KUBE	create -f spark/spark-master.json
 	$KUBE create -f spark/spark-master-service.json
 
-  echo "Waiting for spark master to start"
+  echo "Spark: Waiting for spark master to start"
 	while true; do
 		master_state=$(get-pod-status spark-master)
 		if [[ "$master_state" == "Running" ]]; then
@@ -64,15 +64,15 @@ start_spark() {
 		fi
 	done
 
-  echo "Launching 3 spark workers"
   $KUBE create -f spark/spark-worker-controller.json
 	
+  echo "Spark: waiting for 3 spark workers to start ..."
 	while true; do
 		pending_pods=$(get-pending-pods)
 		if [[ $pending_pods == 0 ]]; then
 			break
 		else
-			echo "Waiting for $pending_pods spark workers to start"
+			echo -n "."
 			sleep 5
 		fi
 	done
@@ -83,7 +83,7 @@ start_spark() {
 
   get-spark-master
 
-	echo "Spark UI accessible through: http://$SPARK_IP:31314"
+  echo -e "${color_yellow} Spark UI accessible through: http://$SPARK_IP:31314 .${color_norm}"
 	echo "Spark UI accessible through: http://$SPARK_IP:31314" >> stdout
 }
 
