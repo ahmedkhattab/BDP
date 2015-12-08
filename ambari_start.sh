@@ -12,6 +12,10 @@ get-host-ip() {
   $KUBE get pod $1 -o template --template={{.status.hostIP}}
 }
 
+get-pod-ip() {
+  $KUBE get pod $1 -o template --template={{.status.podIP}}
+}
+
 get-pod-status() {
   $KUBE get pod $1 -o template --template={{.status.phase}}
 }
@@ -25,7 +29,8 @@ get-namenode-pod() {
   get-ambari-server
   json= curl -s --user admin:admin http://$AMBARI_IP:$AMBARI_PORT/api/v1/clusters/multi-node-hdfs/services/HDFS/components/NAMENODE -o namenode.json
   NAMENODE_HOST=$(jq -r '.host_components[] | select(.HostRoles.component_name=="NAMENODE") | .HostRoles.host_name' namenode.json)
-   echo -e "${color_yellow} Namenode running on $NAMENODE_HOST ${color_norm}"
+  NAMENODE_IP=$(get-pod-ip $NAMENODE_HOST)
+   echo -e "${color_yellow} Namenode running on $NAMENODE_HOST/$NAMENODE_IP ${color_norm}"
 }
 
 

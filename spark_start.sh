@@ -79,8 +79,6 @@ start_spark() {
 
   $KUBE create -f spark/spark-driver.json
 
-  $KUBE get pods
-
   get-spark-master
 
   echo -e "${color_yellow} Spark UI accessible through: http://$SPARK_IP:31314 .${color_norm}"

@@ -11,11 +11,17 @@ fi
 
 
 echo -e "${color_green} Starting ambari ... ${color_norm}"
-. ambari_start.sh && start_ambari
-sleep 20
-get-namenode-pod
-$KUBE expose pod $NAMENODE_HOST --port=8020 --target-port=8020 --name=namenode
+. ambari_start.sh #&& start_ambari
+#sleep 20
+#get-namenode-pod
+#$KUBE delete svc namenode
+#$KUBE expose pod $NAMENODE_HOST --port=8020 --target-port=8020 --name=namenode
 
+$KUBE get pods | cut -d " " -f 1 | grep amb-slave | while read pod; do  
+	if [[ "$pod" != "$NAMENODE_HOST" ]]; then
+		$KUBE exec $pod -- /bin/sh -c 'echo '$NAMENODE_IP' '$NAMENODE_HOST' >> /etc/hosts'
+	fi
+done
 
 echo -e "${color_green} Starting rabbitmq ... ${color_norm}"
 . rabbitmq_start.sh && start_rabbitmq
@@ -34,6 +40,4 @@ while true; do
 		fi
 	done
 
-echo "Fetching code repository ..."
-$KUBE exec spark-driver -- /bin/sh -c 'git clone https://github.com/ahmedkhattab/bdp_apps.git'
-#$KUBE exec spark-driver -- /bin/sh -c 'spark-submit ./bdp_apps/SparkApp/target/SparkApp-0.0.1-SNAPSHOT-jar-with-dependencies.jar'
+$KUBE get pods
