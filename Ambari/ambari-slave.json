@@ -30,6 +30,20 @@
 		  "value": "$(CONSUL_SERVICE_HOST)"
 		}
 	    ],
+	"ports": [
+          {
+            "containerPort": 8010
+          },
+     	 		{
+            "containerPort": 8020
+          },
+     	  	{
+            "containerPort": 50010
+          },
+					{
+            "containerPort": 50020
+          }
+        ],
 	    "command": ["/start-agent"]
           }
         ]

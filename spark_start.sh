@@ -2,7 +2,8 @@
 KUBE="/home/khattab/kubernetes-1.1.2/cluster/kubectl.sh"
 
 get-spark-master() {
-  SPARK_IP=$($KUBE get nodes -o=template '--template={{(index (index .items 0).status.addresses 2).address}}')
+  SPARK_MASTER_NODE=$($KUBE get pod spark-master -o template --template={{.spec.nodeName}})
+  SPARK_IP=$($KUBE get node $SPARK_MASTER_NODE -o=template '--template={{(index .status.addresses 2).address}}')
 }
 
 get-host-ip() {
@@ -49,7 +50,7 @@ start_spark() {
 
   clean-up-spark
 
-	$KUBE	create -f spark/spark-master.json
+	$KUBE create -f spark/spark-master.json
 	$KUBE create -f spark/spark-master-service.json
 
   echo "Spark: Waiting for spark master to start"

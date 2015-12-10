@@ -11,15 +11,17 @@ fi
 
 
 echo -e "${color_green} Starting ambari ... ${color_norm}"
-. ambari_start.sh #&& start_ambari
-#sleep 20
-#get-namenode-pod
-#$KUBE delete svc namenode
-#$KUBE expose pod $NAMENODE_HOST --port=8020 --target-port=8020 --name=namenode
+. ambari_start.sh && start_ambari
+sleep 40
+
+get-namenode-pod
+$KUBE delete svc namenode
+$KUBE expose pod $NAMENODE_HOST --port=8020 --target-port=8020 --name=namenode
 
 $KUBE get pods | cut -d " " -f 1 | grep amb-slave | while read pod; do  
 	if [[ "$pod" != "$NAMENODE_HOST" ]]; then
 		$KUBE exec $pod -- /bin/sh -c 'echo '$NAMENODE_IP' '$NAMENODE_HOST' >> /etc/hosts'
+		$KUBE exec $NAMENODE_HOST -- /bin/sh -c 'echo '$(get-pod-ip $pod)' '$pod' >> /etc/hosts'
 	fi
 done
 
