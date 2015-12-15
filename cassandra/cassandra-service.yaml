@@ -5,7 +5,9 @@ metadata:
     name: cassandra
   name: cassandra
 spec:
+  type: NodePort
   ports:
     - port: 9042
+      nodePort: 31317
   selector:
     name: cassandra

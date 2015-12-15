@@ -1,6 +1,10 @@
 #!/bin/bash
 KUBE="/home/khattab/kubernetes-1.1.2/cluster/kubectl.sh"
 
+get-spark-master() {
+  CASSANDRA_IP=$($KUBE get nodes -o=template '--template={{(index (index .items 0).status.addresses 2).address}}')
+}
+
 get-pending-pods() {
   $KUBE get pods | grep "Pending" | wc -l
 }
@@ -25,7 +29,7 @@ start_cassandra() {
 
   clean-up-cassandra
 
-	$KUBE	create -f cassandra/cassandra-controller.yaml
+	$KUBE create -f cassandra/cassandra-controller.yaml
 	$KUBE create -f cassandra/cassandra-service.yaml
 
 	while true; do
@@ -37,6 +41,7 @@ start_cassandra() {
 			sleep 5
 		fi
 	done
-
+	echo "Cassandra accessible through: http://$CASSANDRA_IP:31317" >> stdout
+  echo -e "${color_yellow} Cassandra accessible through: http://$CASSANDRA_IP:31317 .${color_norm}"
 }
 
