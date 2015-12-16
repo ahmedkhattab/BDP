@@ -1,0 +1,13 @@
+number of minions
+size of minions (cpu, mem, disk)
+size of master (cpu, mem, disk)
+
+number of ambari slaves
+number and distribution of hdfs components on slaves (namenodes, datanodes, ...)
+
+number of rabbitmq nodes
+
+number of spark workers
+size of spark workers (cpu, mem)
+
+number of cassandra nodes
