@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ./ambari-shell.sh << EOF
-blueprint add --url https://goo.gl/7zJ4PX
+blueprint add --url $BLUEPRINT_URL
 
 cluster build --blueprint $BLUEPRINT
 

@@ -19,15 +19,19 @@
           }
         ],
 				"env": [
-					{ 
+					{
 						"name": "AMBARI_HOST",
 						"value": "$(AMBARI_SERVICE_HOST)"
 					},
-					{ 
+          {
+            "name": "BLUEPRINT_URL",
+            "value": "https://goo.gl/7zJ4PX"
+          },
+					{
 						"name": "BLUEPRINT",
 						"value": "multi-node-hdfs"
 					},
-					{ 
+					{
 						"name": "EXPECTED_HOST_COUNT",
 						"value": "3"
 					}
