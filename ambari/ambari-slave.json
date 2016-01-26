@@ -8,7 +8,7 @@
     }
   },
   "spec": {
-    "replicas": 3,
+    "replicas": {{.AmbariNodes}},
     "selector": {
       "name": "amb-slave"
     },
@@ -25,7 +25,7 @@
             "name": "amb-slave",
             "image": "sequenceiq/ambari:2.1.2-v1",
 	    "env": [
-		{ 
+		{
                   "name": "BRIDGE_IP",
 		  "value": "$(CONSUL_SERVICE_HOST)"
 		}
