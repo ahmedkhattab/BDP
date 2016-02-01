@@ -8,6 +8,7 @@
     }
   },
   "spec": {
+    "terminationGracePeriodSeconds": 0,
     "replicas": {{.SparkWorkers}},
     "selector": {
       "name": "spark-worker"

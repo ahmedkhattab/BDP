@@ -9,6 +9,7 @@
   },
   "spec": {
     "restartPolicy": "Never",
+    "terminationGracePeriodSeconds": 0,
     "containers": [
       {
         "name": "amb-shell",
