@@ -24,7 +24,7 @@
         "containers": [
           {
             "name": "amb-slave",
-            "image": "sequenceiq/ambari:2.1.2-v1",
+            "image": "khattab/ambari:2.1.2",
 	    "env": [
 		{
                   "name": "BRIDGE_IP",
