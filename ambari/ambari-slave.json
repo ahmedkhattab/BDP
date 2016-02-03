@@ -25,27 +25,36 @@
           {
             "name": "amb-slave",
             "image": "khattab/ambari:2.1.2",
-	    "env": [
-		{
-                  "name": "BRIDGE_IP",
-		  "value": "$(CONSUL_SERVICE_HOST)"
-		}
-	    ],
-	"ports": [
-          {
-            "containerPort": 8010
-          },
-     	 		{
-            "containerPort": 8020
-          },
-     	  	{
-            "containerPort": 50010
-          },
-					{
-            "containerPort": 50020
-          }
-        ],
-	    "command": ["/start-agent"]
+      	    "env": [
+      		  {
+              "name": "BRIDGE_IP",
+      		    "value": "$(CONSUL_SERVICE_HOST)"
+      		  }
+      	    ],
+          	"ports": [
+              {
+                "containerPort": 8010
+              },
+         	 		{
+                "containerPort": 8020
+              },
+              {
+                "containerPort": 2181
+              },
+              {
+                "containerPort": 8019
+              },
+         	  	{
+                "containerPort": 50010
+              },
+    					{
+                "containerPort": 50020
+              },
+              {
+                "containerPort": 6188
+              }
+            ],
+    	      "command": ["/start-agent"]
           }
         ]
       }

@@ -26,11 +26,11 @@
 					},
           {
             "name": "BLUEPRINT_URL",
-            "value": "https://goo.gl/7zJ4PX"
+            "value": "{{.AmbariBlueprintURL}}"
           },
 					{
 						"name": "BLUEPRINT",
-						"value": "multi-node-hdfs"
+						"value": "{{.AmbariBlueprint}}"
 					},
 					{
 						"name": "EXPECTED_HOST_COUNT",
