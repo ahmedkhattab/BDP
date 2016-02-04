@@ -40,7 +40,6 @@ main() {
   reorder-dns-lookup
   ambari-agent start
   /etc/init.d/sshd start
-  curl -X PUT -d "{\"Node\": \"$(hostname)\",\"Address\": \"$(hostname -I)\",\"Service\": {\"Service\": \"$(hostname)\"}}" http://$CONSUL_SERVICE_HOST:8500/v1/catalog/register
   while true; do
     sleep 3
     tail -f /var/log/ambari-agent/ambari-agent.log

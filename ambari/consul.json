@@ -2,7 +2,7 @@
   "kind": "Pod",
   "apiVersion": "v1",
   "metadata": {
-    "name": "amb-consul",
+    "name": "amb-consul.service.consul",
     "labels": {
       "name": "amb-consul"
     }
@@ -13,6 +13,45 @@
       {
         "name": "amb-consul",
         "image": "sequenceiq/consul:v0.5.0-v6",
+        "ports": [
+          {
+            "containerPort": 8500
+          },
+          {
+            "containerPort": 8600
+          },
+          {
+            "containerPort": 8600,
+            "protocol": "UDP"
+          },
+          {
+            "containerPort": 8400
+          },
+          {
+            "containerPort": 8300
+          },
+          {
+            "containerPort": 8301
+          },
+          {
+            "containerPort": 8301,
+            "protocol": "UDP"
+          },
+          {
+            "containerPort": 8302
+          },
+          {
+            "containerPort": 8302,
+            "protocol": "UDP"
+          },
+          {
+            "containerPort": 53,
+            "protocol": "UDP"
+          },
+          {
+            "containerPort": 53
+          }
+        ],
 	"args": ["-server", "-bootstrap"],
         "resources": {
           "limits": {
