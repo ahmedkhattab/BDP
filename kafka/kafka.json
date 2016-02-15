@@ -1,0 +1,52 @@
+{
+  "kind": "ReplicationController",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "kafka-controller"
+  },
+  "spec": {
+    "replicas": 2,
+    "template": {
+      "metadata": {
+        "labels": {
+          "name": "kafka-controller"
+        }
+      },
+      "spec": {
+    "terminationGracePeriodSeconds":0,
+    "volumes": [
+      {
+        "name": "data",
+        "emptyDir": {}
+      }
+    ],
+    "containers":[
+      {
+        "name":"kafka",
+        "image":"khattab/k8s-kafka:latest",
+        "env":[
+          {
+            "name":"KAFKA_ADVERTISED_PORT",
+            "value":"9092"
+          }
+        ],
+        "ports":[
+          {
+            "containerPort":9092
+          },
+          {
+            "containerPort":7203
+          }
+        ],
+        "volumeMounts": [
+          {
+            "mountPath": "/data",
+            "name": "data"
+          }
+        ]
+      }
+    ]
+  }
+}
+}
+}
