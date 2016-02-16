@@ -5,7 +5,7 @@
     "name": "kafka-controller"
   },
   "spec": {
-    "replicas": 2,
+    "replicas": {{.KafkaNodes}},
     "template": {
       "metadata": {
         "labels": {

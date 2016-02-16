@@ -8,13 +8,11 @@
     }
   },
   "spec": {
-    "type": "NodePort",
     "ports": [
       {
 				"name": "consul1",
         "port": 8500,
-        "targetPort": 8500,
-        "nodePort" : 31314
+        "targetPort": 8500
       },
 			{
 				"name": "consul2",
